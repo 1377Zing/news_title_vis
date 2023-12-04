@@ -12,7 +12,8 @@
 				  	<br>
 				  </div>
 			  </el-header> -->
-		     <el-container style="height: 800px;">
+		      <el-container style="height: 800px;">
+
 		        <el-main width="1000px">
 					<div class="words">
 						<words @word-clicked="handleWordClicked" :msg="words2"></words>
@@ -64,8 +65,8 @@ export default {
 		    { text: '艾森豪威尔', size: 459 }
 		],
       wordData: [
-      {'word': '细菌战', 'descriptions':["审判日本细菌战犯就是审判一切战贩    真理报发表马耶夫斯基论文  1950-01-01"," 伯力续审讯日细菌战犯  苏法医专家委员会发表意见    痛斥日战犯违反科学的罪行  1950-01-01"," 苏联远东滨海军区军事法庭  宣读审讯日本细菌战犯判决书  1950-01-04"], 'frequnce': [5, 540, 10, 2, 3, 4, 8, 2, 0]},
-      {'word': '基本建设', 'descriptions': [" 苏联基本建设计划的实践  1950-07-11  1950-07","东北区一九五零年工业基本建设的成就和经验  1951-01-26","交通银行开始办理基本建设投资拨款  1951-06-09"], 'frequnce': [0, 574, 92, 197, 82, 31, 24, 7, 1]},
+      {'word': '细菌战', 'descriptions': [], 'frequnce': [5, 540, 10, 2, 3, 4, 8, 2, 0]},
+      {'word': '基本建设', 'descriptions': [], 'frequnce': [0, 574, 92, 197, 82, 31, 24, 7, 1]},
       {'word': '抗美援朝', 'descriptions': [], 'frequnce': [0, 1771, 145, 205, 78, 32, 43, 46, 82]},
       {'word': '农业社', 'descriptions': [], 'frequnce': [1, 1085, 96, 41, 2, 11, 0, 4, 6]},
       {'word': '高等学校', 'descriptions': [], 'frequnce': [0, 438, 83, 31, 35, 10, 11, 11, 5]},
@@ -105,21 +106,18 @@ export default {
 
 <style>
 .words{
-        width: 800px;
-        height: 600px;
-        margin-top: 100px;
-        /* margin-left: 20px; */
-        }
+	width: 800px;
+	height: 600px;
+	margin-top: 100px;
+}
 .chart{
-        /* background-color: pink; */
-        width: 380px;
-        height: 400px;
-        /* margin-left: 0px; */
-        margin-top: 20px;
-        }
-
+	/* //background-color: pink; */
+	width: 380px;
+	height: 400px;
+	margin-top: 20px;
+}
 .info{
-	//text-align: center;
+	/* //text-align: center; */
 	font-size: 18px;
 	color: black;
 	background-color: rgba(255, 255, 255, 0.2);

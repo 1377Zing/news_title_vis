@@ -12,8 +12,8 @@
 				  	<br>
 				  </div>
 			  </el-header> -->
-		     <el-container style="height: 800px;">
-		        <el-main width="1000px">
+		      <el-container style="height: 800px;">
+		        <el-main width="800px">
 					<div class="words">
 						<words @word-clicked="handleWordClicked" :msg="words2"></words>
 					</div>
@@ -108,20 +108,18 @@ export default {
 
 <style>
 .words{
- width: 800px;
-        height: 600px;
-        margin-top: 100px;
+	width: 300px;
+	height: 300px;
+	margin-top: 80px;
+	margin-left: 50px;
 }
 .chart{
-        /* background-color: pink; */
-        width: 380px;
-        height: 400px;
-        /* margin-left: 0px; */
-        margin-top: 20px;
-        }
-
+	/* //background-color: pink; */
+	
+	height: 400px;
+}
 .info{
-	//text-align: center;
+	/* //text-align: center; */
 	font-size: 18px;
 	color: black;
 	background-color: rgba(255, 255, 255, 0.2);

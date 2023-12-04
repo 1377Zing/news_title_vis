@@ -6,7 +6,7 @@
 	    mode="horizontal"
 	    background-color="#fff"
 	    text-color="black"
-	    active-text-color="#c3a6a0"
+	    active-text-color="#d65942"
 	    style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;height:50px ;"
 	>
 	    <!-- 首页，个人中心，用户管理，蛋糕分类管理，蛋糕信息管理，系统管理，订单管理 -->
@@ -20,36 +20,7 @@
 		    <el-menu-item index="3">点点图</el-menu-item>
 		</router-link>
 	</el-menu>
-	 
-	 <el-container>
-		
-		 	
-		
-	      <el-aside width="200px">
-			  
-			  <div class="cata">
-				<div @click="handleClick('农业')" class="cataitem">农业</div>
-				<div @click="handleClick('农业')" class="cataitem">农业</div>
-				<div @click="handleClick('科技')" class="cataitem">科技</div>
-				<div @click="handleClick('经济')" class="cataitem">经济</div>
-				<div @click="handleClick('外交')" class="cataitem">外交</div>
-			  	</div>
-		  </el-aside>
-		  
-		  
-		  
-	      <el-main>
-			  <div class="maind3">
-			  	<div class="d3Chart"></div>
-			  </div>
-			   
-		  </el-main>
-		
-	    </el-container>
-
-	
-	
-   
+    <div class="d3Chart"></div>
 
 </template>
 <script>
@@ -57,20 +28,20 @@
 
 	
     export default {
-		data() {
-		  return {
-		      down:"false",
-			  up:"false",
-			  middle:"false",
-			
-		  };
-		},
         mounted() {
+	
+			
+			//读取文件
+			// const filePaths =
+			// ['1946-10.csv','1946-11.csv','1946-12.csv',
+			//  '1947-01.csv','1947-02.csv','1947-03.csv','1947-04.csv','1947-05.csv','1947-06.csv','1947-07.csv','1947-08.csv','1947-09.csv','1947-10.csv','1947-11.csv','1947-12.csv']
+			//const filePaths=
+			//['1947-01.csv','1947-02.csv','1947-03.csv','1947-04.csv','1947-05.csv','1947-06.csv','1947-07.csv','1947-08.csv','1947-09.csv','1947-10.csv','1947-11.csv','1947-12.csv']
+			//const filePaths =['1947-01.csv']
 			const startYear = 1947;
-			const endYear = 1955;
+			const endYear = 1948;
 			const filePaths = [];
-			const posi="middle";
-			this.middle="true";
+			
 			for (let year = startYear; year <= endYear; year++) {
 			  for (let month = 1; month <= 12; month++) {
 			    const monthString = month.toString().padStart(2, '0');
@@ -78,19 +49,26 @@
 			    filePaths.push(filePath);
 			  }
 			}
-			this.handleFilesChange(filePaths,posi)
+			this.handleFilesChange(filePaths)
 
 
+    
+            //点点生成
+			let labelList = [];
+			for (let year = 1947; year <= 2022; year++) {
+			   labelList.push(year.toString());
+			}
+			
 		
             // 数据——对应y轴的值——城市人口（万）
             //let dataList = [100, 105, 200, 250, 230]
             // 画布的参数
             let mapWidth = 10000;
-            let mapHeight = 10000;
+            let mapHeight = 5000;
             let mapPadding = 30
             // 定义画布—— 宽 300 高 300 外边距 10px
             let map = d3.select(".d3Chart").append("svg").attr("width", mapWidth).attr("height", mapHeight).style("margin", "10px")
-             map.style("fill", "#EBA281");
+            
             //定义x轴比例尺（序数段比例尺）
             let scaleX = d3.scaleBand().domain(labelList).range([0, mapWidth - mapPadding * 2])
 
@@ -109,61 +87,10 @@
 						
         },
 	methods: {
-		handleClick (value){
-		
-		console.log(value) // 输出到控制台
-		 const startYear = 1947;
-		 const endYear = 1955;
-		 const filePaths = [];
-		 
-		 for (let year = startYear; year <= endYear; year++) {
-		   for (let month = 1; month <= 12; month++) {
-		     const monthString = month.toString().padStart(2, '0');
-		     const filePath = `${year}-${monthString}.csv`;
-		     filePaths.push(filePath);
-		   }
-		 }
-		 //console.log(this.down);
-		 if(this.middle=="true"){
-		 	let map = d3.select(".d3Chart").select("svg");
-		 	map.selectAll("*").remove(); // 清空mapb
-		 	const posi="up";
-		 	this.up="true";
-		 	this.middle="false";
-		 	this.handleFilesChange(filePaths,posi)
-		 }
-		 else if (this.up=="false"){
-		  	  const posi="up";
-			  this.up="true";
-			  this.middle="false";
-			  this.handleFilesChange(filePaths,posi)
-		  }
-		  else if (this.down=="false"){
-			  console.log(111)
-			  const posi="down";
-			  this.down="true";
-			  this.middle="false";
-			  this.handleFilesChange(filePaths,posi)
-		  }
-		  else if(this.down=='true'&&this.up=="true"){
-			  let map = d3.select(".d3Chart").select("svg");
-			  map.selectAll("*").remove(); // 清空mapb
-			  const posi="middle";
-			  this.middle="true";
-			  this.up="false";
-			  this.down="false";
-			  this.handleFilesChange(filePaths,posi)
-		  }
-	
-
-	  
-		  
-	},
-	  async handleFilesChange(filePaths,posi) {
-	    
+	  async handleFilesChange(filePaths) {
 	    let allFileData = [];
 	    let offsetX = 0;
-	   
+	
 	    for (let filePath of filePaths) {
 	      try {
 	        const response = await fetch(`src/assets/titles/${filePath}`);
@@ -171,7 +98,8 @@
 	
 	        let lines = content.split("\n");
 	        allFileData.push(lines);
-			this.createCircles(lines, offsetX, posi);
+	
+	        this.createCircles(lines, offsetX);
 	        offsetX += 10;
 	
 	      } catch (error) {
@@ -181,59 +109,29 @@
 	
 	    console.log(allFileData);
 	  },
-	  createCircles(data, offsetX,posi) {  
+	  createCircles(data, offsetX) {
 	    let circles = [];
-	   //console.log(posi);
+	
 	    for (let rowIndex = 0; rowIndex < data.length; rowIndex++) {
 	      let row = data[rowIndex].split(",");
 	      let x = 100 + offsetX;
+	      let y = 4950 - rowIndex * 5;
 	      let r = 2;
-	     if (posi=="up"){
-			 //console.log(posi);
-			let y = 320 - rowIndex * 5;
-	      	let circle = this.drawCircle(x, y, r);
-			circle.data = { line: row };
-				
-			circle.on("click", () => {
-			  this.showClickedContent(circle.data.line, x, y);
-			});
-				
-			circles.push(circle);
-        }
-	      if(posi=="down"){
-			  //console.log(posi);
-			let y = 360 + rowIndex * 5;
-	      	let circle = this.drawCircle(x, y, r);
-			circle.data = { line: row };
-				
-			circle.on("click", () => {
-			  this.showClickedContent(circle.data.line, x, y);
-			});
-				
-			circles.push(circle);
-	    }
-	      if (posi=="middle"){
-			//console.log(posi);
-			let y = data.length*5/2+300 - rowIndex * 5;
-	      	let circle = this.drawCircle(x, y, r);
-			circle.data = { line: row };
-				
-			circle.on("click", () => {
-			  this.showClickedContent(circle.data.line, x, y);
-			});
-				
-			circles.push(circle);
-	    }
-	    
-	      
+	
+	      let circle = this.drawCircle(x, y, r);
+	      circle.data = { line: row };
+	
+	      circle.on("click", () => {
+	        this.showClickedContent(circle.data.line, x, y);
+	      });
+	
+	      circles.push(circle);
 	    }
 	  },
-	 
 	  drawCircle(cx, cy, r) {
 	    let map = d3.select(".d3Chart").select("svg");
-	    map.style("fill", "#EBA281");
 	    let width = 10000;
-	    let height = 10000;
+	    let height = 5000;
 	    let randomOffsetX = Math.random() * width;
 	    let randomOffsetY = Math.random() * height;
 	
@@ -260,7 +158,6 @@
 	
 	    return circle;
 	  },
-	  
 	showClickedContent(content, x, y) {
 	  let map = d3.select(".d3Chart").select("svg");
 	
@@ -308,18 +205,8 @@
     }
 </script>
 <style scoped>
-	.active {
-	  background-color: grey;
-	}
+	
 	a{
 	  text-decoration: none;
 	}
-	.cataitem{
-		height: 40px;
-	}
-	.maind3{
-		height: 640px;
-		background-color: "#EBA281";
-	}
-
 </style>

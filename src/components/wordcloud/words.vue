@@ -1,6 +1,7 @@
 <template>
   <div>
-    <canvas ref="canvas" style="width: 700px; height: 400px;"></canvas>
+    <!-- 这个是陈放词云的页面容器的大小 -->
+    <canvas ref="canvas" style="width: 900px; height: 450px; margin-top: 80px; margin-left: 0px"></canvas>
   </div>
 </template>
 
@@ -15,8 +16,10 @@ export default {
 	const words2 = this.msg;
     const canvas = this.$refs.canvas;
 
-    const width = 700; // 对应 35rem
-    const height = 400; // 对应 35rem
+    /*这个指的是词云的大小 */
+    const width = 1000; // 对应 35rem
+    const height = 1100; // 对应 35rem
+
     canvas.width = width;
     canvas.height = height;
  
@@ -70,13 +73,13 @@ const drawWordCloud = (canvas, options, wordClickedHandler) => {
           const index = (hash + randomSeed) % colors.length; // 哈希后加上随机种子并取余以获得位置
           return colors[index];
         },
-        drawMask: true, // 使用遮罩层以确保词云不超出范围
+        drawMask: false, // 使用遮罩层以确保词云不超出范围
         maskColor: 'rgba(0, 0, 0, 0.0)', // 遮罩层颜色
         gridSize: Math.round(50 * width / 1024),
         weightFactor: function (size) {
           return Math.pow(size, 2) * canvas.width / 1024;
         },
-        drawOutOfBound: false, // 禁止绘制超出范围的词
+        drawOutOfBound: true, // 禁止绘制超出范围的词
         fontFamily: 'TEST1',
         rotateRatio: 0.0,
         backgroundColor: 'transparent',

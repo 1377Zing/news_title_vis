@@ -12,13 +12,13 @@
 				  	<br>
 				  </div>
 			  </el-header> -->
-		      <el-container style="height: 800px;">
-		        <el-main width="1000px">
+		      <el-container style="height: 480px;">
+		        <el-main width="700px">
 					<div class="words">
 						<words @word-clicked="handleWordClicked" :msg="words2"></words>
 					</div>
 				</el-main>
-				<el-aside width="420px" >
+				<el-aside width="700px" >
 				<div class="chart">
 					<div class="info">
 					<charts :chartData="chartData"></charts>
@@ -107,18 +107,16 @@ export default {
 
 <style>
 .words{
-	width: 800px;
-	height: 600px;
-	margin-top: 100px;
+	width: 700px;
+	height: 300px;
+	margin-top: 10px;
+	margin-left: 50px;
 }
 .chart{
-        /* background-color: pink; */
-        width: 380px;
-        height: 400px;
-        /* margin-left: 0px; */
-        margin-top: 20px;
-        }
-
+	//background-color: pink;
+	
+	height: 460px;
+}
 .info{
 	//text-align: center;
 	font-size: 18px;

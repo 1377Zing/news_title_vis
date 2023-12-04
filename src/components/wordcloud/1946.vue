@@ -1,7 +1,7 @@
 <template>
-	
+	<!-- <template>部分定义了组件的模板包括一个名为wordmain的<div>容器和一个内部的<el-container>容器 -->
 	<div class="wordmain">
-		  <el-container width="1480px">
+		<el-container width="1480px">
 		    <!--  <el-header height="100px" width="1480px">
 				  <div class="info">
 				  	1945年，第二次世界大战结束后，中华民国政府获得对台湾、澎湖群岛以及东北部分地区的控制权.
@@ -12,27 +12,25 @@
 				  	<br>
 				  </div>
 			  </el-header> -->
-		      <el-container style="height: 800px;">
-				  
-				  
-		        <el-main width="1000px">
+			<el-container style="height: 800px;">
+
+		        <el-main width="800px">
 					<div class="words">
 						<words @word-clicked="handleWordClicked" :msg="words2"></words>
 					</div>
 				</el-main>
 				
 				
-				<el-aside width="420px" >
+				<el-aside width="420px" margin_left="0px">
 				<div class="chart">
 					<div class="info">
 					<charts :chartData="chartData"></charts>
 					</div>
 				</div>
 				</el-aside>
-				
-				
-		      </el-container>
+
 		    </el-container>
+		</el-container>
 	</div>
 </template>
 
@@ -69,8 +67,8 @@ export default {
 	  { text: '贫雇', size: 283 }
 	],
       wordData: [
-        {'word': '我军', 'descriptions': ["热中我军奋战两昼夜光复宁城歼蒋军千余即墨西北我歼蒋军一团  1946-10-01 ","豫北我军积极反击攻克窦公俘蒋伪官兵四十余  1946-10-01","罢战蒋军黄旅长一行抵太岳我军设宴压惊  1946-10-02"], 'frequnce': [1476, 269, 178, 233, 138, 175, 141, 92, 4]},
-        {'word': '北平', 'descriptions': ["重庆二十四个人民团体宣言美军驻华侵犯中国主权北平六学生团体敦促美军立即撤退  1946-10-15","东北蒋军嫡系谭营长等  反对内战向我投诚南京北平蒋军官兵厌战自杀  1946-11-03 "," 北平美军殴打警察  1946-11-03 "], 'frequnce': [2077, 24, 19, 10, 39, 18, 6, 18, 0]},
+        {'word': '我军', 'descriptions': [], 'frequnce': [1476, 269, 178, 233, 138, 175, 141, 92, 4]},
+        {'word': '北平', 'descriptions': [], 'frequnce': [2077, 24, 19, 10, 39, 18, 6, 18, 0]},
         {'word': '蒋介石', 'descriptions': [], 'frequnce': [1424, 226, 165, 40, 9, 2, 0, 1, 0]},
         {'word': '歼敌', 'descriptions': [], 'frequnce': [736, 252, 609, 453, 50, 2, 0, 0, 0]},
         {'word': '翻身', 'descriptions': [], 'frequnce': [585, 90, 123, 81, 58, 18, 23, 20, 14]},
@@ -113,21 +111,20 @@ export default {
 	height:40rem;
 }
 .words{
-        width: 800px;
-        height: 600px;
-        margin-top: 100px;
-        /* margin-left: 20px; */
-        }
+	width: 300px;
+	height: 300px;
+	margin-top: 80px;
+	/* margin-left: 20px; */
+}
 .chart{
-        /* background-color: pink; */
-        width: 380px;
-        height: 400px;
-        /* margin-left: 0px; */
-        margin-top: 20px;
-        }
-
+	/* background-color: pink; */
+	width: 380px;
+	height: 400px;
+    /* margin-left: 0px; */
+	margin-top: 20px;
+}
 .info{
-	//text-align: center;
+	/* text-align: center; */
 	font-size: 18px;
 	color: black;
 	background-color: rgba(255, 255, 255, 0.2);

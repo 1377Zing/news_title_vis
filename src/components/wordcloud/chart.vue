@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div ref="chartContainer" style="width: 300px; height: 300px;" class="chartmain"></div>
+
+    <!-- 图表 -->
+    <div ref="chartContainer" style="width: 380px; height: 400px;" class="chartmain"></div>
 	
-	
-	<div>
-		<el-table :data="chartData.description" style="width: 100%">
+  <div>
+    <!-- 白色说明部分-->
+		<el-table :data="chartData.description" style="width: 380px; height: 170px;">
 		  <el-table-column width="300px" label="具体详情">
 		    <template #default="{ row }">
 		      <span>{{ row }}</span>
@@ -12,12 +14,13 @@
 		  </el-table-column>
 		</el-table>
 	</div>
-    <br>
 
+    <br>
   </div>
 </template>
 
 <script>
+// 导入
 import { ref, onMounted, watchEffect } from 'vue';
 import * as echarts from 'echarts';
 
@@ -29,9 +32,12 @@ export default {
       required: true
     }
   },
+  /* 在组件的 `setup` 函数中，定义了一个 `chartContainer` 的引用（ref），
+  它将用于指向图表容器的 DOM 元素 */
   setup(props) {
     const chartContainer = ref(null);
-
+    /* 使用 `echarts.init` 方法初始化了一个 ECharts 实例
+     并将其绑定到 `chartContainer` 引用指向的 DOM 元素上 */
     onMounted(() => {
       const myChart = echarts.init(chartContainer.value);
 
@@ -39,7 +45,7 @@ export default {
       const option = {
         xAxis: {
           type: 'category',
-          data: ['46', '50','60','70','80','90','00','10','20']
+          data: ['40s', '50s','60s','70s','80s','90s','00s','10s','20s']
         },
         yAxis: {
           type: 'value'
@@ -79,13 +85,9 @@ export default {
 </script>
 
 <style scoped>
+/* 定义图表容器的宽度和高度 */
 .chartmain {
   width: 300px;
   height: 300px;
-
-
 }
-
-
-
 </style>
