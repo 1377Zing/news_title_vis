@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'LESLIE';
+    src: url('LESLIE.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TEST1';
+    src: url('test2.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
