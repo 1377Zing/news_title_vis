@@ -1,57 +1,54 @@
 <template>
-<div class="main_world">
-		<el-menu
-		    :default-active="activeIndex"
-		    class="el-menu-demo"
-		    mode="horizontal"
-		    background-color="#d65942"
-		    text-color="black"
-		    active-text-color=" #fff"
-		    style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;height:50px ;"
-		>
-		    <!-- 首页，个人中心，用户管理，蛋糕分类管理，蛋糕信息管理，系统管理，订单管理 -->
-		    <router-link to='/'>
-		        <el-menu-item index="1">词云图</el-menu-item>
-		    </router-link>
-		    <router-link to='/map'>
-		        <el-menu-item index="2">外交分布图</el-menu-item>
-		    </router-link>
-			<router-link to='/dot'>
-			    <el-menu-item index="3">点点图</el-menu-item>
-			</router-link>
-		</el-menu>
+  <div class="main_world" style="overflow:hidden">
+    <el-menu
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
+      background-color="#c3a6a0"
+      text-color="black"
+      active-text-color="#fff"
+      style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;height:50px ;"
+    >
+      <!-- 首页，个人中心，用户管理，蛋糕分类管理，蛋糕信息管理，系统管理，订单管理 -->
+      <router-link to="/">
+        <el-menu-item index="1">词云图</el-menu-item>
+      </router-link>
+      <router-link to="/map">
+        <el-menu-item index="2">外交分布图</el-menu-item>
+      </router-link>
+      <router-link to="/dot">
+        <el-menu-item index="3">点点图</el-menu-item>
+      </router-link>
+    </el-menu>
 
-	
+    <div class="maintime">
+      <div id="boy"></div>
+      <el-steps :active=date align-center>
+        <el-step title="1946" description="" class="time1" @click="scrollToPosition(1946)"/>
+      	<el-step title="1950" description="" class="time1" @click="scrollToPosition(1950)"/>
+      	<el-step title="1960" description="" class="time1" @click="scrollToPosition(1960)"/>
+      	<el-step title="1970" description="" class="time1" @click="scrollToPosition(1970)"/>
+      	<el-step title="1980" description="" class="time1" @click="scrollToPosition(1980)"/>
+      	<el-step title="1990" description="" class="time1" @click="scrollToPosition(1990)"/>
+      	<el-step title="2000" description="" class="time1" @click="scrollToPosition(2000)"/>
+      	<el-step title="2010" description="" class="time1" @click="scrollToPosition(2010)"/>
+      	<el-step title="2020" description="" class="time1" @click="scrollToPosition(2020)"/>
+      	
+        </el-steps>
+    </div>
 
-		  <div class="maintime">
-		  				  
-		  				  <!-- <div id="boy">
-		  				  	 <el-image style="width: 100px; height: 100px" :src="imageUrl" :fit="fit" />
-		  				  </div>   
-		  				<el-steps :active=date align-center>
-		  				    <el-step title="1946" description="" class="time1"/>
-		  					<el-step title="1950" description="" class="time1"/>
-		  					<el-step title="1960" description="" class="time1"/>
-		  					<el-step title="1970" description="" class="time1"/>
-		  					<el-step title="1980" description="" class="time1"/>
-		  					<el-step title="1990" description="" class="time1"/>
-		  					<el-step title="2000" description="" class="time1"/>
-		  					<el-step title="2010" description="" class="time1"/>
-		  					<el-step title="2020" description="" class="time1"/>
-		  				  </el-steps>
-		  	<button @click="scrollToPosition1" class="timeline1"></button>
-		  	<button @click="scrollToPosition2" class="timeline2"></button>
-		  	<button @click="scrollToPosition3" class="timeline3"></button>
-		  	<button @click="scrollToPosition4" class="timeline4"></button>
-		  	<button @click="scrollToPosition5" class="timeline5"></button>
-		  	<button @click="scrollToPosition6" class="timeline6"></button>
-		  	<button @click="scrollToPosition7" class="timeline7"></button>
-		  	<button @click="scrollToPosition8" class="timeline8"></button>
-		  	<button @click="scrollToPosition9" class="timeline9"></button> -->
-
-		</div>			 
-</div>
-	
+    <div style="width: 1000px; height: 42.5rem; display: table;" >
+      <word1946 v-if="showWord1946" />
+      <word1950 v-if="showWord1950" />
+      <word1960 v-if="showWord1960" />
+      <word1970 v-if="showWord1970" />
+      <word1980 v-if="showWord1980" />
+      <word1990 v-if="showWord1990" />
+      <word2000 v-if="showWord2000" />
+      <word2010 v-if="showWord2010" />
+      <word2020 v-if="showWord2020" />
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -67,511 +64,92 @@ import word2010 from "../components/wordcloud/2010.vue"
 import word2020 from "../components/wordcloud/2020.vue"
 
 const activeIndex = ref('1')
-const date=ref(1);
-// const imageUrl=ref("src/assets/wordcloud/boyy1.gif");
-// const imagePosition = ref(9.5) 
+const date = ref(1)
+const showWord1946 = ref(true)
+const showWord1950 = ref(false)
+const showWord1960 = ref(false)a
+const showWord1970 = ref(false)
+const showWord1980 = ref(false)
+const showWord1990 = ref(false)
+const showWord2000 = ref(false)
+const showWord2010 = ref(false)
+const showWord2020 = ref(false)
 
-// const elMenu = document.querySelector('.el-menu-item');
-		
-// window.addEventListener('scroll', function() {
-// 	 // 判断鼠标是否位于窗口最上方
-// 	const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-// 	if (scrollTop === 0) {
-// 	// 当鼠标位于窗口最上方时，显示el-menu
-// 	 elMenu.style.display = 'block';
-// 	} else {
-// 	// 当鼠标不位于窗口最上方时，隐藏el-menu
-// 	elMenu.style.display = 'none';
-// 	}
-// });
+const scrollToPosition = (year) => {
+  // 将所有年份的 showWord 变量设置为 false
+  showWord1946.value = false
+  showWord1950.value = false
+  showWord1960.value = false
+  showWord1970.value = false
+  showWord1980.value = false
+  showWord1990.value = false
+  showWord2000.value = false
+  showWord2010.value = false
+  showWord2020.value = false
 
+  // 根据选中的年份，将对应年份的 showWord 变量设置为 true
+  if (year == '1946') {
+    showWord1946.value = true
+  } else if (year == '1950') {
+    showWord1950.value = true
+  } else if (year == '1960') {
+    showWord1960.value = true
+  } else if (year == '1970') {
+    showWord1970.value = true
+  } else if (year == '1980') {
+    showWord1980.value = true
+  } else if (year == '1990') {
+    showWord1990.value = true
+  } else if (year == '2000') {
+    showWord2000.value = true
+  } else if (year == '2010') {
+    showWord2010.value = true
+  } else if (year == '2020') {
+    showWord2020.value = true
+  }
 
-
-
-
-
-
-// const scrollToPosition1=()=> {
-// 	    const targetElement = document.getElementById('word4');
-// 	    const targetimg = document.getElementById('boy');
-// 	    if (targetElement) {
-// 	    	date.value=1;
-// 	    	imageUrl.value="src/assets/wordcloud/boy1.gif";
-// 	    	imagePosition.value =0.5;
-// 	    	targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 	    	targetimg.style.transition = "transform 3s ease-out"; 
-// 	        targetElement.scrollIntoView({
-// 	        behavior: 'auto', // 平滑滚动
-// 	        left: targetElement.offsetLeft,
-	    	
-// 	      });
-// 	    }
-// 	  }	  
-// const scrollToPosition2=()=> {
-// 	  	    const targetElement = document.getElementById('word5');
-// 			const targetimg = document.getElementById('boy');
-// 	  	    if (targetElement) {
-// 				date.value=2;
-// 				imageUrl.value="src/assets/wordcloud/boyy2.gif";
-// 				imagePosition.value =9.5;
-// 				targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 				targetimg.style.transition = "transform 3s ease-out"; 
-// 	  	        targetElement.scrollIntoView({
-// 	  	        behavior: 'auto', // 平滑滚动
-// 	  	        left: targetElement.offsetLeft,
-				
-// 	  	      });
-// 	  	    }
-// 	  	  }
-// const scrollToPosition3=()=> {
-// 	  	    const targetElement = document.getElementById('word6');
-// 	  	   const targetimg = document.getElementById('boy');
-// 	  	   if (targetElement) {
-// 	  	   	date.value=3;
-// 	  	   	imageUrl.value="src/assets/wordcloud/boyy1.gif";
-// 	  	   	imagePosition.value =18;
-// 	  	   	targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 	  	   	targetimg.style.transition = "transform 3s ease-out"; 
-// 	  	       targetElement.scrollIntoView({
-// 	  	       behavior: 'auto', // 平滑滚动
-// 	  	       left: targetElement.offsetLeft,
-	  	   	
-// 	  	     });
-// 	  	   }
-// 	  	  }
-
-// const scrollToPosition4=()=> {
-// 	  	    const targetElement = document.getElementById('word7');
-// 	  	    const targetimg = document.getElementById('boy');
-// 	  	    if (targetElement) {
-// 	  	    	date.value=4;
-// 	  	    	imageUrl.value="src/assets/wordcloud/boyy2.gif";
-// 	  	    	imagePosition.value =28;
-// 	  	    	targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 	  	    	targetimg.style.transition = "transform 3s ease-out"; 
-// 	  	        targetElement.scrollIntoView({
-// 	  	        behavior: 'auto', // 平滑滚动
-// 	  	        left: targetElement.offsetLeft,
-	  	    	
-// 	  	      });
-// 	  	    }
-// 	  	  }
-// const scrollToPosition5=()=> {
-// 	  	    const targetElement = document.getElementById('word8');
-// 	  	   const targetimg = document.getElementById('boy');
-// 	  	   if (targetElement) {
-// 	  	   	date.value=5;
-// 	  	   	imageUrl.value="src/assets/wordcloud/boyy1.gif";
-// 	  	   	imagePosition.value =37;
-// 	  	   	targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 	  	   	targetimg.style.transition = "transform 3s ease-out"; 
-// 	  	       targetElement.scrollIntoView({
-// 	  	       behavior: 'auto', // 平滑滚动
-// 	  	       left: targetElement.offsetLeft,
-	  	   	
-// 	  	     });
-// 	  	   }
-// 	  	  }
-// const scrollToPosition6=()=> {
-// 	  	    const targetElement = document.getElementById('word9');
-// 	  	    const targetimg = document.getElementById('boy');
-// 	  	    if (targetElement) {
-// 	  	    	date.value=6;
-// 	  	    	imageUrl.value="src/assets/wordcloud/boyy2.gif";
-// 	  	    	imagePosition.value =47;
-// 	  	    	targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 	  	    	targetimg.style.transition = "transform 3s ease-out"; 
-// 	  	        targetElement.scrollIntoView({
-// 	  	        behavior:'auto', // 平滑滚动
-// 	  	        left: targetElement.offsetLeft,
-	  	    	
-// 	  	      });
-// 	  	    }
-// 	  	  }
-// const scrollToPosition7=()=> {
-// 	  	    const targetElement = document.getElementById('word0');
-// 	  	   const targetimg = document.getElementById('boy');
-// 	  	   if (targetElement) {
-// 	  	   	date.value=7;
-// 	  	   	imageUrl.value="src/assets/wordcloud/boyy1.gif";
-// 	  	   	imagePosition.value =56;
-// 	  	   	targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 	  	   	targetimg.style.transition = "transform 3s ease-out"; 
-// 	  	       targetElement.scrollIntoView({
-// 	  	       behavior:'auto', // 平滑滚动
-// 	  	       left: targetElement.offsetLeft,
-	  	   	
-// 	  	     });
-// 	  	   }
-// 	  	  }
-// const scrollToPosition8=()=> {
-// 	  	    const targetElement = document.getElementById('word1');
-// 	  	   const targetimg = document.getElementById('boy');
-// 	  	   if (targetElement) {
-// 	  	   	date.value=8;
-// 	  	   	imageUrl.value="src/assets/wordcloud/boyy2.gif";
-// 	  	   	imagePosition.value =65;
-// 	  	   	targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 	  	   	targetimg.style.transition = "transform 3s ease-out"; 
-// 	  	       targetElement.scrollIntoView({
-// 	  	       behavior: 'auto', // 平滑滚动
-// 	  	       left: targetElement.offsetLeft,
-	  	   	
-// 	  	     });
-// 	  	   }
-// 	  	  }
-// const scrollToPosition9=()=> {
-// 	  	    const targetElement = document.getElementById('word2');
-// 	  	   const targetimg = document.getElementById('boy');
-// 	  	   if (targetElement) {
-// 	  	   	date.value=9;
-// 	  	   	imageUrl.value="src/assets/wordcloud/boyy1.gif";
-// 	  	   	imagePosition.value =75;
-// 	  	   	targetimg.style.transform = `translateX(${imagePosition.value}rem)`; // 修改图片的水平位置
-// 	  	   	targetimg.style.transition = "transform 3s ease-out"; 
-// 	  	       targetElement.scrollIntoView({
-// 	  	       behavior: 'auto', // 平滑滚动
-// 	  	       left: targetElement.offsetLeft,
-	  	   	
-// 	  	     });
-// 	  	   }
-// 	  	  }
-
-
+  console.log(year)
+}
 </script>
 
 <style>
-	a{
-	  text-decoration: none;
-	}
-	.wordmain{
-		   /* background-color: aquamarine; */
-		   height:40rem;
-		   margin-top: 30px;
-	}
-	.commain{
-		width: 1480px;
-		height:42.5rem;
-	    background-color: #d65942;
-  
-	}
-	body {
-  background: #ddd;
+.main_world{
+	background-color:#c3a6a0;
 }
-*{margin: 0;padding: 0;}
-#container
-{
-height: 600px;
-width: 100%;
-background-color: #ddd;
-overflow: hidden;
-position: relative;
-/* #overflow-x: scroll; */
-  margin-top: 30px;
-  display: inline-block;
-}
-#thumbs
-{
-background-color: #ddd;
-position: absolute;
-top: 0px;
-left: 0px;
-height: 100%;
-width: auto;
-overflow: hidden;
-white-space: nowrap;
-padding: 30px 100px;
-}
-.history-block {
-  height: 100%;
-  width: 300px;
-  background-color: #cdcdcd;
-  margin: 0 -2px;
-  border-right: 1px solid #fff;
-  display: inline-block;
-  font-family: 'roboto condensed', sans-serif;
-  font-size:60px;
-  font-weight: 100;
-  color: #FFF;
-  cursor: pointer;
-  box-shadow: 2px 5px 20px rgba(0,0,0,0.8);
-  transition: width 0.2s;
-}
-
-.history-block:last-of-type {
-  border-right: none;
-}
-
-.cover {
-  width: 100%;
-  height: 100%;
-  transition: background .5s;
-  background: rgba(0,0,0,0.8);
-}
-
-.cover:hover {
-  width: 100%;
-  height: 100%;
-  transition: background .5s;
-  background: rgba(0,0,0,0.8);
-}
-
-.year {
-  position: absolute;
-    top: 0px;
-    font-size: 30px;
-  font-weight:500;
-    margin: 40px 30px;
-}
-
-.title {
-  position: absolute;
-  display: block;
-  width: 260px;
-    top: 60px;
-    font-size: 15px;
-    margin: 30px;
-  white-space: normal;
-  transition: width 0.2s;
-}
-
-.timeline {
-  display:none;
-  position: absolute;
-  bottom: 80px;
-    font-size: 20px;
-    margin: 20px;
-  transition: display 0.8s;
-}
-
-.timeline ul {
-  margin: 0;
-padding: 0;
-list-style-type: none;
-text-align: center;
-}
-
-.timeline ul li {
-  display: inline;
-  font-size: 15px;
-  font-weight: 100;
-  padding: 0px 5px;
-}
-
-.timeline ul li {
-  display: inline;
-  font-size: 15px;
-  font-weight: 100;
-  padding: 0px 5px;
-}
-
-.timeline ul li:before {
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  color: rgba(255,255,255,0.5);
-  content: '\f10c';
-  position: absolute;
-  top: 30px;
-  margin-left:10px;
-  transition: all 0.5s;
-}
-
-.timeline ul li:after {
-  content: '';
-  position: absolute;
-  top: 40px;
-  margin-left:-10px;
-  width: 36px;
-  height:2px;
-  border: 1px solid rgba(255,255,255,0.5);
-  transition: all 0.5s;
-}
-
-.timelineYear, .timelineYear:hover {
+a {
   text-decoration: none;
-  color: #fff;
-  transition: all 0.8s;
 }
 
-.timeline ul li:hover:before {
-  content: '\f111';
-  color: #ffffff;
-  font-size: 18px;
-  transition: all 0.5s;
-  top: 29px;
-  margin-left:9px
+.wordmain {
+  height: 40rem;
+  margin-top: 30px;
 }
 
-.timeline ul li:hover:after {
-  content: '';
-  position: absolute;
-  top: 40px;
-  margin-left:-10px;
-  width: 36px;
-  height:2px;
-  border: 1px solid #fff;
-  transition: all 0.5s;
+.commain {
+  width: 1480px;
+  height: 45rem;
+  background-color: #c3a6a0;
 }
 
-.timeline ul li:hover .timelineYear {
-  position: static;
-  top:-10px;
+#boy {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 8rem;
+  left: 9.5rem;
+  height: 5rem;
+  z-index: 9999;
 }
 
-.bg-66 {
-  background: url(http://www.unido.org/uploads/tx_templavoila/history_07.jpg);
-  background-size:cover;
+.maintime {
+  color: black;
+  font-size: 20px;
+  position: fixed;
+  bottom: 1rem;
+  width: 92rem;
+  background-color:#c3a6a0;
+  z-index: 9999;
 }
 
-.bg-76 {
-  background: url(http://austria-forum.org/attach/Wissenssammlungen/Bibliothek/Wien_mit_den_Augen_des_Adlers/Wien_der_Moderne/UNO-City,_Austria_Center_Vienna/dkaiser_hav_25.jpg);
-  background-size:cover;
-}
-
-.bg-86 {
-  background: url('https://upload.wikimedia.org/wikipedia/commons/e/e8/Power_Plant_(Tianjin,_China).jpg');
-  background-size:cover;
-}
-
-.bg-96 {
-  background: url(http://www.oxfordbusinessgroup.com/sites/default/files/styles/chapter_header__710x233_/public/chapter_headers/ind1_2.png?itok=uxI_081i&c=af7608f5f35cf219c326e9b6e6a7d34c);
-  background-size:cover;
-}
-
-.bg-06 {
-  background: url(http://www.3adi.org/tl_files/3ADIDocuments/Pictures/Greenshot_2014-01-08_18-32-54.jpg);
-  background-size:cover;
-}
-
-.bg-16 {
-  background: url(https://i.dailymail.co.uk/i/pix/2012/07/23/article-0-142DF918000005DC-387_468x665.jpg);
-  background-size:cover;
-}
-	/* #boy{
-		width: 50px;
-		height: 50px;
-		position: fixed;
-		bottom: 8rem;
-		left: 9.5rem;
-		height: 5rem;
-		z-index: 9999;
-	}
-	  .maintime{
-		color: black;
-		 font-size: 20px;
-		 position: fixed;
-		 bottom: 1rem;
-		 left: 5rem;
-		 height: 5rem;
-		width: 85rem;
-		background-color:#d65942;
-		z-index: 9999;
-	}
-
-	.timeline1{
-		  color: black;
-		  font-size: 20px;
-		  position: fixed;
-		  bottom: 2rem;
-		  left: 8.5rem;
-		  height: 4rem;
-		  width: 2rem;
-		  z-index: 999;
-		 opacity: 0; 
-	}
-	.timeline2{
-		 color: black;
-		  font-size: 20px;
-		  position: fixed;
-		  bottom: 2rem;
-		  left: 18rem;
-		  height: 4rem;
-		  width: 2rem;
-		  z-index: 999;
-		 opacity: 0;
-	}
-	.timeline3{
-		 color: black;
-		  font-size: 20px;
-		  position: fixed;
-		  bottom: 2rem;
-		  left: 27.5rem;
-		  height: 4rem;
-		  width: 2rem;
-		  z-index: 999;
-		  opacity: 0;
-	}
-	
-	.timeline4{
-		 color: black;
-		  font-size: 20px;
-		  position: fixed;
-		  bottom: 2rem;
-		  left: 37rem;
-		  height: 4rem;
-		  width: 2rem;
-		  z-index: 999;
-		  opacity: 0;
-	}
-	
-	.timeline5{
-		 color: black;
-		  font-size: 20px;
-		  position: fixed;
-		  bottom: 2rem;
-		  left: 46.5rem;
-		  height: 4rem;
-		  width: 2rem;
-		  z-index: 999;
-		  opacity: 0;
-	}
-	
-	
-	.timeline6{
-		 color: black;
-		  font-size: 20px;
-		  position: fixed;
-		  bottom: 2rem;
-		  left: 56rem;
-		  height: 4rem;
-		  width: 2rem;
-		  z-index: 999;
-		  opacity: 0;
-	}
-	.timeline7{
-		 color: black;
-		  font-size: 20px;
-		  position: fixed;
-		  bottom: 2rem;
-		  left: 65.5rem;
-		  height: 4rem;
-		  width: 2rem;
-		  z-index: 999;
-		  opacity: 0;
-	}
-	.timeline8{
-		 color: black;
-		  font-size: 20px;
-		  position: fixed;
-		 bottom: 2rem;
-		 left: 75rem;
-		 height: 4rem;
-		 width: 2rem;
-		  z-index: 999;
-		  opacity: 0;
-	}
-	.timeline9{
-		 color: black;
-		  font-size: 20px;
-		  position: fixed;
-		 bottom: 2rem;
-		 left: 84rem;
-		 height: 4rem;
-		 width: 2rem;
-		  z-index: 999;
-		  opacity: 0;
-	} */
-	
 
 </style>
