@@ -5,6 +5,7 @@ declare const _default: import("vue").DefineComponent<{
     readonly modalFade: import("element-plus/es/utils").EpPropFinalized<BooleanConstructor, unknown, unknown, true, boolean>;
     readonly headerAriaLevel: import("element-plus/es/utils").EpPropFinalized<StringConstructor, unknown, unknown, "2", boolean>;
     readonly appendToBody: BooleanConstructor;
+    readonly appendTo: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => string & {}) | (() => string) | ((new (...args: any[]) => string & {}) | (() => string))[], unknown, unknown, "body", boolean>;
     readonly beforeClose: {
         readonly type: import("vue").PropType<import("element-plus/es/components/dialog").DialogBeforeCloseFn>;
         readonly required: false;
@@ -111,6 +112,7 @@ declare const _default: import("vue").DefineComponent<{
     readonly modalFade: import("element-plus/es/utils").EpPropFinalized<BooleanConstructor, unknown, unknown, true, boolean>;
     readonly headerAriaLevel: import("element-plus/es/utils").EpPropFinalized<StringConstructor, unknown, unknown, "2", boolean>;
     readonly appendToBody: BooleanConstructor;
+    readonly appendTo: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => string & {}) | (() => string) | ((new (...args: any[]) => string & {}) | (() => string))[], unknown, unknown, "body", boolean>;
     readonly beforeClose: {
         readonly type: import("vue").PropType<import("element-plus/es/components/dialog").DialogBeforeCloseFn>;
         readonly required: false;
@@ -172,6 +174,7 @@ declare const _default: import("vue").DefineComponent<{
     readonly center: boolean;
     readonly size: import("element-plus/es/utils").EpPropMergeType<readonly [StringConstructor, NumberConstructor], unknown, unknown>;
     readonly modelValue: boolean;
+    readonly appendTo: string;
     readonly direction: import("element-plus/es/utils").EpPropMergeType<StringConstructor, "ltr" | "rtl" | "ttb" | "btt", unknown>;
     readonly customClass: string;
     readonly showClose: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;

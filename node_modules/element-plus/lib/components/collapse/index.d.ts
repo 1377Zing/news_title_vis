@@ -147,7 +147,7 @@ export declare const ElCollapse: import("element-plus/es/utils").SFCWithInstall<
                 __epPropKey: true;
             };
         }>>, {}>> & Record<string, any>;
-        ArrowRight: import("vue").DefineComponent<{}, {}, {}, import("vue").ComputedOptions, import("vue").MethodOptions, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}>;
+        ArrowRight: any;
     }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         readonly title: import("element-plus/es/utils").EpPropFinalized<StringConstructor, unknown, unknown, "", boolean>;
         readonly name: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => import("./src/collapse").CollapseActiveName & {}) | (() => import("./src/collapse").CollapseActiveName) | ((new (...args: any[]) => import("./src/collapse").CollapseActiveName & {}) | (() => import("./src/collapse").CollapseActiveName))[], unknown, unknown, () => number, boolean>;
@@ -280,7 +280,7 @@ export declare const ElCollapseItem: import("element-plus/es/utils").SFCWithInst
             __epPropKey: true;
         };
     }>>, {}>> & Record<string, any>;
-    ArrowRight: import("vue").DefineComponent<{}, {}, {}, import("vue").ComputedOptions, import("vue").MethodOptions, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{}>>, {}>;
+    ArrowRight: any;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     readonly title: import("element-plus/es/utils").EpPropFinalized<StringConstructor, unknown, unknown, "", boolean>;
     readonly name: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => import("./src/collapse").CollapseActiveName & {}) | (() => import("./src/collapse").CollapseActiveName) | ((new (...args: any[]) => import("./src/collapse").CollapseActiveName & {}) | (() => import("./src/collapse").CollapseActiveName))[], unknown, unknown, () => number, boolean>;

@@ -2,27 +2,18 @@
 	
 	<div class="wordmain">
 		  <el-container width="1480px">
-	<!-- 	      <el-header height="100px" width="1480px">
-				  <div class="info">
-				  	1945年，第二次世界大战结束后，中华民国政府获得对台湾、澎湖群岛以及东北部分地区的控制权.
-					<br>
-					国共双方在政治、军事和经济等方面争夺控制地区和人民的支持。
-					<br>
-					国民党政府在西南地区、华中地区和大部分北方地区控制较为稳固，而中国共产党则主要控制着中原地区和山西、陕北等地。
-				  	<br>
-				  </div>
-			  </el-header> -->
-		      <el-container style="height: 480px;">
-		        <el-main width="700px">
+
+		      <el-container style="height: 800px;">
+		        <el-main width="1000px">
 					<div class="words">
 						<words @word-clicked="handleWordClicked" :msg="words2"></words>
 					</div>
 				</el-main>
-				<el-aside width="700px" >
+				<el-aside width="420px" >
 				<div class="chart">
-					<div class="info">
+					
 					<charts :chartData="chartData"></charts>
-					</div>
+				
 				</div>
 				</el-aside>
 		      </el-container>
@@ -41,23 +32,23 @@ export default {
     return {
       chartData: {
 		   description: [],
-		   frequnce: []
+		   frequnce: [],
+		    word:[],
 	   },
       clickedWord: '',
 		words2: [
-		    //{ text: '“三个代表”', size: 2814 },
-			 { text: '“三个代表”', size: 814 },
-			 //{ text: '非典', size: 1280 },
-		     { text: '非典', size: 780 },
-		     //{ text: '科学发展观', size: 2124 },
-			 { text: '科学发展观', size: 724 },
+		    { text: '“三个代表”', size: 2814 },
+			 //{ text: '“三个代表”', size: 814 },
+			 { text: '非典', size: 1280 },
+		     //{ text: '非典', size: 780 },
+		
 		     { text: '共产党员先进性', size: 654 },
-		     //{ text: '和谐社会构建', size: 1048 },
+		     { text: '和谐社会构建', size: 1048 },
 		     { text: '北京奥运会', size: 368 },
-			 //{ text: '温家宝', size: 1793 },
-		     { text: '温家宝', size: 693 },
-			 //{ text: '科学发展观', size: 3838 },
-		     { text: '科学发展观', size: 538 },
+			 { text: '温家宝', size: 1793 },
+		     //{ text: '温家宝', size: 693 },
+			 { text: '科学发展观', size: 3838 },
+		     //{ text: '科学发展观', size: 538 },
 		     { text: '曹刚川', size: 241 },
 		     { text: '吴仪', size: 323 },
 		     { text: '全面建设小康社会', size: 239 },
@@ -97,6 +88,7 @@ export default {
         console.log(foundWord.frequnce);
 	     this.chartData.description=foundWord.descriptions;
 		 this.chartData.frequnce=foundWord.frequnce;
+		  this.chartData.word=foundWord.word;
       } else {
         console.log('未找到匹配的词描述');
       }
@@ -107,16 +99,18 @@ export default {
 
 <style>
 .words{
-	width: 700px;
-	height: 300px;
-	margin-top: 10px;
-	margin-left: 50px;
+	width: 800px;
+	height: 600px;
+	margin-top: 100px;
 }
 .chart{
-	//background-color: pink;
-	
-	height: 460px;
-}
+        /* background-color: pink; */
+        width: 380px;
+        height: 400px;
+        /* margin-left: 0px; */
+        margin-top: 20px;
+        }
+
 .info{
 	//text-align: center;
 	font-size: 18px;

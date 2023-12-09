@@ -1,36 +1,34 @@
 <template>
-	<!-- <template>部分定义了组件的模板包括一个名为wordmain的<div>容器和一个内部的<el-container>容器 -->
+	
 	<div class="wordmain">
-		<el-container width="1480px">
-		    <!--  <el-header height="100px" width="1480px">
-				  <div class="info">
-				  	1945年，第二次世界大战结束后，中华民国政府获得对台湾、澎湖群岛以及东北部分地区的控制权.
-					<br>
-					国共双方在政治、军事和经济等方面争夺控制地区和人民的支持。
-					<br>
-					国民党政府在西南地区、华中地区和大部分北方地区控制较为稳固，而中国共产党则主要控制着中原地区和山西、陕北等地。
-				  	<br>
-				  </div>
-			  </el-header> -->
-			<el-container style="height: 800px;">
 
-		        <el-main width="800px">
+		  <el-container width="1480px">
+			  
+		      <el-container style="height: 780px;">
+				 
+				  
+		        <el-main width="1000px">
+		<!-- 			<div class="info">
+						"1946-1949"
+					</div> -->
 					<div class="words">
 						<words @word-clicked="handleWordClicked" :msg="words2"></words>
 					</div>
 				</el-main>
 				
 				
-				<el-aside width="420px" margin_left="0px">
+				<el-aside width="420px" >
+			
 				<div class="chart">
-					<div class="info">
+					
 					<charts :chartData="chartData"></charts>
-					</div>
+					
 				</div>
 				</el-aside>
-
+				
+				
+		      </el-container>
 		    </el-container>
-		</el-container>
 	</div>
 </template>
 
@@ -44,8 +42,9 @@ export default {
   data() {
     return {
       chartData: {
-		   description: [],
-		   frequnce: []
+		   description: ["热中我军奋战两昼夜光复宁城歼蒋军千余即墨西北我歼蒋军一团  1946-10-01 ","豫北我军积极反击攻克窦公俘蒋伪官兵四十余  1946-10-01","罢战蒋军黄旅长一行抵太岳我军设宴压惊  1946-10-02"],
+		   frequnce: [1476, 269, 178, 233, 138, 175, 141, 92, 4],
+		   word:'我军',
 	   },
       clickedWord: '',
 	words2 :[
@@ -67,8 +66,8 @@ export default {
 	  { text: '贫雇', size: 283 }
 	],
       wordData: [
-        {'word': '我军', 'descriptions': [], 'frequnce': [1476, 269, 178, 233, 138, 175, 141, 92, 4]},
-        {'word': '北平', 'descriptions': [], 'frequnce': [2077, 24, 19, 10, 39, 18, 6, 18, 0]},
+        {'word': '我军', 'descriptions': ["热中我军奋战两昼夜光复宁城歼蒋军千余即墨西北我歼蒋军一团  1946-10-01 ","豫北我军积极反击攻克窦公俘蒋伪官兵四十余  1946-10-01","罢战蒋军黄旅长一行抵太岳我军设宴压惊  1946-10-02"], 'frequnce': [1476, 269, 178, 233, 138, 175, 141, 92, 4]},
+        {'word': '北平', 'descriptions': ["重庆二十四个人民团体宣言美军驻华侵犯中国主权北平六学生团体敦促美军立即撤退  1946-10-15","东北蒋军嫡系谭营长等  反对内战向我投诚南京北平蒋军官兵厌战自杀  1946-11-03 "," 北平美军殴打警察  1946-11-03 "], 'frequnce': [2077, 24, 19, 10, 39, 18, 6, 18, 0]},
         {'word': '蒋介石', 'descriptions': [], 'frequnce': [1424, 226, 165, 40, 9, 2, 0, 1, 0]},
         {'word': '歼敌', 'descriptions': [], 'frequnce': [736, 252, 609, 453, 50, 2, 0, 0, 0]},
         {'word': '翻身', 'descriptions': [], 'frequnce': [585, 90, 123, 81, 58, 18, 23, 20, 14]},
@@ -97,6 +96,7 @@ export default {
         console.log(foundWord.frequnce);
 	     this.chartData.description=foundWord.descriptions;
 		 this.chartData.frequnce=foundWord.frequnce;
+		 this.chartData.word=foundWord.word;
       } else {
         console.log('未找到匹配的词描述');
       }
@@ -111,20 +111,21 @@ export default {
 	height:40rem;
 }
 .words{
-	width: 300px;
-	height: 300px;
-	margin-top: 80px;
-	/* margin-left: 20px; */
-}
+        width: 800px;
+        height: 500px;
+        margin-top: 50px;
+        margin-left: 50px; 
+        }
 .chart{
-	/* background-color: pink; */
-	width: 380px;
-	height: 400px;
-    /* margin-left: 0px; */
-	margin-top: 20px;
-}
+        /* background-color: pink; */
+        width: 380px;
+        height: 380px;
+        /* margin-left: 0px; */
+        
+        }
+
 .info{
-	/* text-align: center; */
+	//text-align: center;
 	font-size: 18px;
 	color: black;
 	background-color: rgba(255, 255, 255, 0.2);

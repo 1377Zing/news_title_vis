@@ -1,26 +1,34 @@
 
 <template>
+
+ <el-container width="1450px">
  
- <el-container width="1250px">
- 
-       <el-main width="1000px">
- 		<div ref="Map" class="GlobalMap"></div>
+       <el-main width="1100px">
+        <div ref="Map" class="GlobalMap" ></div> 
  	   </el-main>
  	  
  	  
- 	  <el-aside width="250px">
-		  <el-card class="box-card">
-			  <div class="flag">
-			  	<img :src="flagurl" class="flag"/>
+ 	  <el-aside width="350px">
+
+			  <div class="box-card">
+			  <div class="year">
+			  	{{yeardata}}
 			  </div>
-			  <div class="country">
-			  	{{country}}
+			  <div class="flag" >
+			  	<img :src="flagurl" class="flag—image"/>
 			  </div>
-			  <div class="bigevent">
-			  	{{ currentEvent }}
+			  <div class="eventtext">
+			  	<div class="country" >
+			  		{{ country }}
+			  	</div>
+			  	<div class="bigevent">
+			  		{{ currentEvent }}
+			  	</div>
 			  </div>
+			  
 		   
-		  </el-card>
+		   </div>
+		
  	  </el-aside>
   
  </el-container>
@@ -30,26 +38,37 @@
 
 <script>
 import world from "../../assets/map/word.json";
-import * as echarts from "echarts";
+import * as echarts5 from "echarts5";
 
 export default {
    props: {
      mapData: {
        type: Array,
        required: true
-     }
+     },
+	 yeardata:String,
    },
    data() {
      return {
-       data: this.mapData,
-	     currentEvent: '',
-        country:'',
-		flagurl:'',
+       data: [
+    { name: "美国", value: 78, event: "发生了大事", url: "src/assets/flags/US.svg" },
+    { name: "俄罗斯", value: 50, event: "发生了大事", url: "src/assets/flags/RU.svg" },
+    { name: "日本", value: 26, event: "发生了大事", url: "src/assets/flags/JP.svg" },
+    { name: "法国", value: 18, event: "发生了大事", url: "src/assets/flags/FR.svg" },
+    { name: "印度尼西亚", value: 6, event: "发生了大事", url: "src/assets/flags/ID.svg" },
+    { name: "巴勒斯坦", value: 5, event: "发生了大事", url: "src/assets/flags/PS.svg" },
+    { name: "德国", value: 5, event: "发生了大事", url: "src/assets/flags/DE.svg" },
+    { name: "西班牙", value: 5, event: "发生了大事", url: "src/assets/flags/ES.svg" },
+    { name: "伊朗", value: 5, event: "发生了大事", url: "src/assets/flags/IR.svg" },
+    ],
+	   currentEvent: '',
+       country:'',
+	   flagurl:'',
      };
    },
   mounted() {
     this.Global();
-	
+    this.setDefaultData();//没有初始数据？？
 
   },
   watch: {
@@ -58,21 +77,42 @@ export default {
         this.Global();
       }
     },
-  methods: {
-    handleMapClick(params) {
-    if (params.name) {
-      const searchData = this.data.filter(item => item.name === params.name);
+  methods: {   
+    setDefaultData() {
+    // 设置默认数据的逻辑，可以根据您的需求进行修改
+    const defaultData = this.data[0]; // 假设您的数据数组不为空
+    if (defaultData) {
+      this.currentEvent = defaultData.event;
+      this.country = defaultData.name;
+      this.flagurl = defaultData.url;
+    }  
+  },
+  handleMapClick(params) {
+    if (!params.name) {
+      const searchData = this.data.filter(item => item.name == params.name);
 
       if (searchData.length > 0) {
         this.currentEvent = searchData[0].event;
-		this.country=searchData[0].name;
-		this.flagurl=searchData[0].url;
+        this.country = searchData[0].name;
+        this.flagurl = searchData[0].url;
       }
     }
-    },
+    if (params.name) {
+      const searchData = this.data.filter(item => item.name == params.name);
+
+      if (searchData.length > 0) {
+        this.currentEvent = searchData[0].event;
+        this.country = searchData[0].name;
+        this.flagurl = searchData[0].url;
+      }
+    }
+  },
+    
     Global() {
-      var mycontractMap = echarts.init(this.$refs.Map);
-      this.$echarts.registerMap("world", world);
+      var mycontractMap = echarts5.init(this.$refs.Map);
+
+      this.$echarts5.registerMap("world", world);
+ //11.28nyx补充修改完整
       let nameMap = {
         Afghanistan: "阿富汗",
         Singapore: "新加坡",
@@ -108,7 +148,7 @@ export default {
         China: "中国",
         "Ivory Coast": "象牙海岸",
         Cameroon: "喀麦隆",
-        "Democratic Republic of the Congo": "刚果民主共和国",
+        "Dem. Rep. Congo": "刚果民主共和国",
         "Republic of the Congo": "刚果共和国",
         Colombia: "哥伦比亚",
         "Costa Rica": "哥斯达黎加",
@@ -128,7 +168,7 @@ export default {
         Estonia: "爱沙尼亚",
         Ethiopia: "埃塞俄比亚",
         Finland: "芬兰",
-        Fiji: "斐",
+        Fiji: "斐济",
         "Falkland Islands": "福克兰群岛",
         France: "法国",
         Gabon: "加蓬",
@@ -208,12 +248,12 @@ export default {
         Paraguay: "巴拉圭",
         Qatar: "卡塔尔",
         Romania: "罗马尼亚",
-        Russia: "俄罗斯",
+      "the Russia Federation": "俄罗斯",
         Rwanda: "卢旺达",
         "Western Sahara": "西撒哈拉",
         "Saudi Arabia": "沙特阿拉伯",
-        Sudan: "苏丹",
-        "South Sudan": "南苏丹",
+        "Sudan": "苏丹",
+        "S. Sudan": "南苏丹",
         Senegal: "塞内加尔",
         "Solomon Islands": "所罗门群岛",
         "Sierra Leone": "塞拉利昂",
@@ -240,7 +280,7 @@ export default {
         Uganda: "乌干达",
         Ukraine: "乌克兰",
         Uruguay: "乌拉圭",
-        "United States": "美国",
+        "the United States": "美国",
         Uzbekistan: "乌兹别克斯坦",
         Venezuela: "委内瑞拉",
         Vietnam: "越南",
@@ -259,7 +299,7 @@ export default {
         "Czech Rep.": "捷克",
         "W. Sahara": "西撒哈拉",
         "Lao PDR": "老挝",
-        "Dem.Rep.Korea": "朝鲜",
+        "Dem. Rep. Korea": "朝鲜",
         "Falkland Is.": "福克兰群岛",
         "Timor-Leste": "东帝汶",
         "Solomon Is.": "所罗门群岛",
@@ -289,7 +329,17 @@ export default {
         "Cape Verde": "佛得角共和国",
         "Turks and Caicos Is.": "特克斯和凯科斯群岛",
         "St. Vin. and Gren.": "圣文森特和格林纳丁斯",
+        "Côte d'Ivoire":"科特迪瓦",
+        "S. Geo. and S. Sandw. Is.": "南乔治亚岛和南桑威奇群岛",
+        "São Tomé and Principe":"圣多美和普林西比",
+        "Niue":"纽埃",
+        "Fr. Polynesia":"法属波利尼西亚",
+       "Tonga":"汤加",
+       "Heard l. and McDonald ls.":"赫德岛和麦克唐纳群岛",
+       "American Samoa":"美属萨摩亚",
+       "Curaçao":"库拉索",
       };
+  //11.28nyx修改完    
       let option = {
         // 鼠标悬浮提示框
         tooltip: {
@@ -302,7 +352,7 @@ export default {
             if (params.name) {
               return (
 				  params.name +
-				  ' : ' + 
+				  ' : ' + '被提及'+
 				  (isNaN(params.value) ? 0 : parseInt(params.value)) + '次'
 				  // '<br/>' + 
 				  // '事件: ' + 
@@ -329,43 +379,43 @@ export default {
           hoverLink: true, //鼠标悬浮
           inRange: {
             //选中图例后背景半透明
-            color: ["rgba(225,225,225,1)"],
+            color: ["rgba(102, 112, 224, 0.25)"],
             symbol: "rect", //更改图元样式
           },
           pieces: [
             {
               gt: 1001,
-              label: ">1000",
-              color: "#004bbc",
+              label: ">400",
+              color: "#ca8470",
             },
             {
               gte: 500,
               lte: 1000,
-              label: "500-1000",
-              color: "#237bff",
+              label: "200-400",
+              color: "#e4ae6d",
             },
             {
               gte: 100,
               lte: 499,
-              label: "100-499",
-              color: "#35a9ff",
+              label: "100-200",
+              color: "#ebcb6b",
             },
             {
               gte: 10,
               lte: 99,
-              label: "10-99",
-              color: "#73c1ff",
+              label: "50-100",
+              color: "#e0d669",
             },
             {
               gte: 1,
               lte: 9,
-              label: "1-9",
-              color: "#b4deff",
+              label: "20-50",
+              color: "#90b07e",
             },
             {
               lte: 0,
-              label: "0",
-              color: "#d2ecf1",
+              label: "5-20",
+              color: "#6ea797",
             },
           ],
           textStyle: {
@@ -383,21 +433,23 @@ export default {
             roam: true, //禁止拖拽
             itemStyle: {
               normal: {
-				areaColor: 'hsl(197, 60%, 20%)',
-                borderWidth: 0.5, //边框宽度
+				areaColor: '#C1C1C1',
+                borderWidth: 0.6, //边框宽度
                 textStyle: {
                   color: "#fff", //默认文字颜色
                 },
                 borderColor: "#fff", //地图边框颜色
               },
               emphasis: {
-                areaColor: "#5599FF", //动态背景颜色
+                borderColor: '#A31212', //地图边框颜色
+                areaColor: null, // 设置地图点击后的颜色
               },
             },
             select: {
               //地图选中颜色
               itemStyle: {
-                areaColor: "#5599FF",
+                borderColor: '#A31212', //地图边框颜色
+                color: null, // 设置地图点击后的颜色
               },
             },
             label: {
@@ -434,21 +486,31 @@ export default {
   },
 };
 </script>
-
+<!-- 11.28农玉翔有调整-南美洲显示不完全 -->
 <style lang="scss" scoped>
 .GlobalMap {
   width: 1000px;
-  height: 570px;
- 
+  height: 450px;
+  margin-left: 100px;
 }
 .box-card{
 	width: 232px;
-	margin-left: 15px;
-	margin-top: 18px;
+	margin-left: 30px;
+	margin-top: 50px;
 }
-.flag{
-	width: 190px;
+
+.flag {
+  width: 230px;
+  display: outline-block; /* 保持容器大小与图像一致 */
+  box-shadow: 0 0 10px black; /* 添加黑色边缘 */
+
 }
+.flag-image {
+  width: 100%; /* 使图像填充整个容器 */
+  height: auto; /* 保持宽高比 */
+  vertical-align: bottom; /* 底部对齐 */
+}
+
 .country{
 	font-size: 25px;
 	float: left;
@@ -456,6 +518,16 @@ export default {
 }
 .bigevent{
 	font-size: 20px;
+}
+.eventtext{
+	width: 230px;
+	margin-top: 20px;
+
+}
+.year{
+	font-size:30px;
+	margin-bottom: 10px;
+	font-weight: bold;
 }
 </style>
 

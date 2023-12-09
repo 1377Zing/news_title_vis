@@ -3,6 +3,7 @@ declare type DoneFn = (cancel?: boolean) => void;
 export declare type DialogBeforeCloseFn = (done: DoneFn) => void;
 export declare const dialogProps: {
     readonly appendToBody: BooleanConstructor;
+    readonly appendTo: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => string & {}) | (() => string) | ((new (...args: any[]) => string & {}) | (() => string))[], unknown, unknown, "body", boolean>;
     readonly beforeClose: {
         readonly type: import("vue").PropType<DialogBeforeCloseFn>;
         readonly required: false;

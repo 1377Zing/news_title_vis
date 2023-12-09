@@ -2,27 +2,18 @@
 	
 	<div class="wordmain">
 		  <el-container width="1480px">
-		      <!-- <el-header height="100px" width="1480px">
-				  <div class="info">
-				  	1945年，第二次世界大战结束后，中华民国政府获得对台湾、澎湖群岛以及东北部分地区的控制权.
-					<br>
-					国共双方在政治、军事和经济等方面争夺控制地区和人民的支持。
-					<br>
-					国民党政府在西南地区、华中地区和大部分北方地区控制较为稳固，而中国共产党则主要控制着中原地区和山西、陕北等地。
-				  	<br>
-				  </div>
-			  </el-header> -->
-		      <el-container style="height: 800px;">
-		        <el-main width="800px">
+	
+		     <el-container style="height: 800px;">
+		        <el-main width="1000px">
 					<div class="words">
 						<words @word-clicked="handleWordClicked" :msg="words2"></words>
 					</div>
 				</el-main>
 				<el-aside width="420px" >
 				<div class="chart">
-					<div class="info">
+					
 					<charts :chartData="chartData"></charts>
-					</div>
+					
 				</div>
 				</el-aside>
 		      </el-container>
@@ -41,16 +32,17 @@ export default {
     return {
       chartData: {
 		   description: [],
-		   frequnce: []
+		   frequnce: [],
+		    word:[],
 	   },
       clickedWord: '',
 		words2: [
-		   //{ text: '苏修', size: 1888 },
-		   { text: '苏修', size: 888 },
-		   //{ text: '文化大革命', size: 4045 },
+		   { text: '苏修', size: 1888 },
+		   //{ text: '苏修', size: 888 },
+		   { text: '文化大革命', size: 4045 },
 		   { text: '文革', size: 1445 },
-		   //{ text: '公社', size: 2473 },
-		   { text: '公社', size: 1073 },
+		   { text: '公社', size: 2473 },
+		   //{ text: '公社', size: 1073 },
 		   { text: '反动派', size: 1090 },
 		   { text: '贫下中农', size: 824 },
 		   { text: '佐藤', size: 464 },
@@ -61,8 +53,8 @@ export default {
 		   { text: '红卫兵', size: 309 },
 		   { text: '日内瓦会议', size: 483 },
 		   { text: '艾地', size: 296 },
-		   // { text: '南越', size: 3363 },
-		   { text: '南越', size: 1063 },
+		   { text: '南越', size: 3363 },
+		   //{ text: '南越', size: 1063 },
 		   { text: '越南南方民族解放阵线', size: 650 },
 		   { text: '老挝', size: 3107 }
 		],
@@ -98,6 +90,7 @@ export default {
         console.log(foundWord.frequnce);
 	     this.chartData.description=foundWord.descriptions;
 		 this.chartData.frequnce=foundWord.frequnce;
+		  this.chartData.word=foundWord.word;
       } else {
         console.log('未找到匹配的词描述');
       }
@@ -108,18 +101,20 @@ export default {
 
 <style>
 .words{
-	width: 300px;
-	height: 300px;
-	margin-top: 80px;
-	margin-left: 50px;
+ width: 800px;
+        height: 600px;
+        margin-top: 100px;
 }
 .chart{
-	/* //background-color: pink; */
-	
-	height: 400px;
-}
+        /* background-color: pink; */
+        width: 380px;
+        height: 400px;
+        /* margin-left: 0px; */
+        margin-top: 20px;
+        }
+
 .info{
-	/* //text-align: center; */
+	//text-align: center;
 	font-size: 18px;
 	color: black;
 	background-color: rgba(255, 255, 255, 0.2);

@@ -1,141 +1,180 @@
 <template>
-  <div>
-    <!-- 这个是陈放词云的页面容器的大小 -->
-    <canvas ref="canvas" style="width: 900px; height: 450px; margin-top: 80px; margin-left: 0px"></canvas>
+  <div class="cloud-wrap">
+    <div
+      ref="cloudEl"
+      class="cloud-box"
+      id="title"
+      style="height: 450px; width: 950px"
+    ></div>
   </div>
+  <div id="title1"></div>
 </template>
 
 <script>
-import wordcloud from 'wordcloud';
-import { defineProps } from 'vue';
+import * as echarts from "echarts";
+//require('echarts-wordcloud')
+import 'echarts-wordcloud';
+
 export default {
-   props: {
-	    msg: Array // 接收父组件ParentComponent传过来的数组
-	  },
+ props: {
+ 	    msg: Array // 接收父组件ParentComponent传过来的数组
+ 	  },
+  data() {
+    return {
+     //  msg: [
+	    // { text: '我军', size: 1476 },
+	    // { text: '北平', size: 2077 },
+	    // { text: '蒋介石', size: 1424 },
+	    // { text: '歼敌', size: 736 },
+	    // { text: '翻身', size: 585 },
+	    // { text: '民兵', size: 549 },
+	    // { text: '地主', size: 506 },
+	    // { text: '太行', size: 774 },
+	    // { text: '冀鲁豫', size: 661 },
+	    // { text: '牌价', size: 333 },
+	    // { text: '游击', size: 925 },
+	    // { text: '储蓄', size: 316 },
+	    // { text: '解放区', size: 352 },
+	    // { text: '折实', size: 313 },
+	    // { text: '土地改革', size: 1147 },
+	    // { text: '贫雇', size: 283 }
+     //  ],
+      id1: "title"
+    };
+  },
+ watch: {
+   msg(newValue) {
+     this.drawCloud(newValue);
+   },
+ },
   mounted() {
-	const words2 = this.msg;
-    const canvas = this.$refs.canvas;
+    this.drawCloud(this.msg);
+  },
+  methods: {
+    drawCloud(msg) {
+      console.log(msg)
+      var  myChart = echarts.init(document.getElementById("title"));
+      var maskImage = new Image(); //可以根据图片形状生成有形状的词云图
+      maskImage.src = this.bgImg;
+      let arr = msg;
+      let list = [];
 
-    /*这个指的是词云的大小 */
-    const width = 1000; // 对应 35rem
-    const height = 1100; // 对应 35rem
-
-    canvas.width = width;
-    canvas.height = height;
- 
-
-    const colors = ['#506050', '#A0C0A8', '#BBDOE4', '#BFA7D9', '#DABCA4', '#C8D8B8', '#E0E8C8', '#E5E8DA', '#3B5173', '#E3EFFD', '#5D87A8', '#DCEEFA', '#6A6BAB', '#8988C4', '#A3A5DE', '#BCC7F43'];
-
-    const tooltip = document.createElement('div');
-    tooltip.style.position = 'absolute';
-    tooltip.style.visibility = 'hidden';
-    tooltip.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-    tooltip.style.color = '#fff';
-    tooltip.style.padding = '10px 10px';
-    tooltip.style.borderRadius = '4px';
-    document.body.appendChild(tooltip);
-	
-	
-      const clickedWord = '大熊猫';
-const drawWordCloud = (canvas, options, wordClickedHandler) => {
-      const ctx = canvas.getContext('2d');
-      const bbox = canvas.getBoundingClientRect();
-
-      const { list, gridSize, weightFactor, fontFamily, color, rotateRatio } = options;
-
-      const drawTooltip = (text, x, y) => {
-        const left = bbox.left + x;
-        const top = bbox.top + y;
-        tooltip.style.left = `${left}px`;
-        tooltip.style.top = `${top}px`;
-        tooltip.innerText = text;
-        tooltip.style.visibility = 'visible';	
-      }
-	  
-	  
-	   const handleClick = (item) => {
-	      wordClickedHandler(item[0]);
-	    };
-	  
-	 
-      const hideTooltip = () => {
-        tooltip.style.visibility = 'hidden';
-      };
-
-      const randomSeed = 20; // 固定随机种子
-      const positions = new Map(); // 存储已生成词云的位置
-
-      wordcloud(canvas, {
-        ...options,
-        color: (word) => {
-          const hash = hashCode(word);
-          const randomIndex = Math.floor(Math.random() * colors.length);
-          const index = (hash + randomSeed) % colors.length; // 哈希后加上随机种子并取余以获得位置
-          return colors[index];
-        },
-        drawMask: false, // 使用遮罩层以确保词云不超出范围
-        maskColor: 'rgba(0, 0, 0, 0.0)', // 遮罩层颜色
-        gridSize: Math.round(50 * width / 1024),
-        weightFactor: function (size) {
-          return Math.pow(size, 2) * canvas.width / 1024;
-        },
-        drawOutOfBound: true, // 禁止绘制超出范围的词
-        fontFamily: 'TEST1',
-        rotateRatio: 0.0,
-        backgroundColor: 'transparent',
-        shuffle: false, // 不打乱词的顺序
-        abortThreshold: 1000,
-        abort: () => {
-          return positions.size >= list.length; // 当所有词云都生成后终止
-        },
-        hover: (item, dimension, event) => {
-          const centerX = dimension.x + dimension.w / 2;
-          const centerY = dimension.y + dimension.h / 2;
-		  const temp= Math.floor(Math.pow(item[1]*3, 2));
-          drawTooltip(temp, centerX, centerY);
-        },
-        leave: hideTooltip,
-		click: handleClick,
-      });
-
-      canvas.addEventListener('mouseleave', hideTooltip);
-
-      function hashCode(str) {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-          hash = ((hash << 5) - hash) + str.charCodeAt(i);
-          hash |= 0;
+      arr.map(item => {
+        let obj = {
+          name: item.text, 
+          value: item.size,
+          clickable: true // 可以点击
         }
-        return hash;
-      }
-	  
-	  
-    };
-
-    const options2 = {
-      list: words2.map((word) => [word.text,  Math.cbrt(word.size) ]),
-      gridSize: Math.round(10 * width / 1024), // 调整 gridSize 的值
-      weightFactor: function (size) {
-		
-        return Math.pow(size, 2) * canvas.width / 1024;
-      },
-      fontFamily: 'Arial, Helvetica, sans-serif',
-      rotateRatio: 0.0,
-      backgroundColor: 'transparent',
-    };
-
-    drawWordCloud(canvas, options2, (clickedWord) => {
-      console.log(clickedWord);
-	  this.$emit('word-clicked', clickedWord);
-    });
-	
-	
-	
-	
+        list.push(obj);
+      })
+      console.log(list)
+      list.sort(function (a, b) {
+        // return a - b; // 升序的顺序排列
+        return a.value - b.value; // 降序的顺序排列
+      });
+      let colorList = ["#999999", "#666666", "#333333", "#FF060B"];
+      let length = list.length;
+      //按出现频率上色
+      list.map((item, index) => {
+          if (index < length / 3 || index == length / 3) {
+            item.color = 0;
+          } else if (index < (length * 2) / 3 || index == (length * 2) / 3) {
+            item.color = 1;
+          } else {
+            item.color = 2;
+          }
+      });
+      let option = {
+        title: {
+          //text: this.title, //这里的参数是整个图标的标题 后面也可以加注释
+          left: "10%",
+          textStyle: {
+            fontSize: 12,
+          },
+        },
+        tooltip: {
+          show: true,
+          confine:true,//限定在图表范围内
+        },
+        // backgroundColor:'#333944', // 画布背景色
+        series: [
+          {
+            name: "频次",
+            type: "wordCloud",
+            // maskImage: maskImage, // 图片形状
+            //maskImage的横纵比为1:1
+            keepAspect: false,
+            sizeRange: [40, 60], //词云的文字字号范围，默认是[12, 60]。
+            rotationRange: [0, 0], //数据翻转范围
+            //shape: "star",
+            width: "600px", //词云的宽高，默认是 75%、80%。
+            height: "100%",
+            // drawOutOfBound: true, // 超出画布的词汇是否隐藏
+            drawOutOfBound: false,
+            color: "#fff",
+            left: "center",
+            top: "center",
+            right: null,
+            bottom: null,
+            // width: "100%",
+            // height: "100%",
+            gridSize: 20, //每个词之间的间距。
+            // textPadding: 10,
+            autoSize: {
+              enable: true,
+              minSize: 6,
+            },
+            textStyle: {
+              normal: {
+                fontFamily: "sans-serif",
+                fontWeight: "bold",
+                color: "#333", // 字体颜色
+                color: function (params) {
+                  // 字体颜色
+                  return colorList[params.data.color];
+                  // return 'rgb(' + [
+                  //     Math.round(Math.random() * 160),
+                  //     Math.round(Math.random() * 160),
+                  //     Math.round(Math.random() * 160)
+                  // ].join(',') + ')';
+                },
+              },
+              emphasis: {
+                // focus: 'self',
+                textStyle: {
+                  shadowBlur: 10,
+                  shadowColor: "#333",
+                },
+              },
+            },
+            data: list,
+          },
+        ],
+      };
+      myChart.setOption(option,true);
+      myChart.on("click", params => {
+          let clickedWord = params.data.name;
+          console.log(clickedWord);
+          this.$emit("word-clicked", clickedWord);
+        });
+    },
   },
 };
 </script>
 
 <style>
-
+.cloud-wrap {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  /* background-image: url("/Users/zhulinyu/Downloads/star.png"); */
+  background-repeat: no-repeat; 
+  background-size:50%,
+  /* background-image:'require(@/public/img/star .png)' ; */
+}
+.cloud-box {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
 </style>
