@@ -56,7 +56,9 @@
 		  
 	      <el-main>
 			  <div class="maind3">
-			  	<div class="d3Chart"></div>
+			  	<div class="d3Chart">
+					<svg></svg>
+				</div>
 			  </div>
 			   
 		  </el-main>
@@ -105,7 +107,7 @@
             let mapHeight = 10000;
             let mapPadding = 30
             // 定义画布—— 宽 300 高 300 外边距 10px
-            let map = d3.select(".d3Chart").append("svg").attr("width", mapWidth).attr("height", mapHeight).style("margin", "10px")
+            let map = d3.select(".d3Chart").select("svg").attr("width", mapWidth).attr("height", mapHeight).style("margin", "10px")
              map.style("fill", "#EBA281");
             //定义x轴比例尺（序数段比例尺）
             let scaleX = d3.scaleBand().domain(labelList).range([0, mapWidth - mapPadding * 2])

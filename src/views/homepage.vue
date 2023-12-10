@@ -19,25 +19,17 @@
 	  
     <div id="container" ref="containerRef" @mousemove="handleMouseMove">
       <div id="thumbs" ref="thumbsRef">
-        <div
-      v-for="(block, index) in historyBlocks"
-      :key="index"
-      :class="['history-block', block.bgClass, { 'timeline-visible': block.timelineVisible, 'no-margin-right': index === historyBlocks.length - 1 }]"
-      @click="handleHistoryBlockClick(index)"
-      :style="{ width: `${block.width}px` }"
-    >
+        <div v-for="(block, index) in historyBlocks" :key="index"
+          :class="['history-block', block.bgClass, { 'timeline-visible': block.timelineVisible, 'no-margin-right': index === historyBlocks.length - 1 }]"
+          @click="handleHistoryBlockClick(index)" :style="{ width: `${block.width}px` }">
           <div class="cover"></div>
           <div class="year">{{ block.year }}</div>
           <div class="title" :style="{ width: `${block.titleWidth}px` }">
             {{ block.title }}
           </div>
-       
         </div>
       </div>
-	  
-	  
-	  
-	</div>
+    </div>
 	
 	
 	  
@@ -291,31 +283,30 @@ a {
 body {
   background: #ddd;
 } 
-#container
-{
-height: 120px;
-width: 98%;
-background-color: #ddd;
-overflow: hidden;
-position: fixed;
-top:10px;
-left:10px;
-/* overflow-x: scroll; */
+#container {
+  height: 120px;
+  width: 98%;
+  background-color: #ddd;
+  overflow: hidden;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  /* overflow-x: scroll; */
   margin-bottom: 0em;
   display: inline-block;
+  z-index: 100;
 }
 
-#thumbs
-{
-background-color: #ddd;
-position: absolute;
-top: 0px;
-left: 0px;
-height: 100%;
-width: auto;
-overflow: hidden;
-white-space: nowrap;
-padding: 0px 100px;
+#thumbs {
+  background-color: #ddd;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0px 100px;
 }
 
 .history-block {
@@ -326,69 +317,72 @@ padding: 0px 100px;
   border-right: 1px solid #fff;
   display: inline-block;
   font-family: 'roboto condensed', sans-serif;
-  font-size:60px;
+  font-size: 60px;
   font-weight: 100;
   color: #FFF;
   cursor: pointer;
-  box-shadow: 2px 5px 20px rgba(0,0,0,0.8);
+  box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.8);
   transition: width 0.2s;
 }
+
 .no-margin-right {
   margin-right: null;
 }
+
 .cover {
   width: 100%;
   height: 100%;
   transition: background .5s;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .cover:hover {
   width: 100%;
   height: 100%;
   transition: background .5s;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .year {
   position: absolute;
-    top: 0px;
-    font-size: 30px;
-  font-weight:500;
-    margin: 20px 30px;
+  top: 0px;
+  font-size: 30px;
+  font-weight: 500;
+  margin: 20px 30px;
 }
 
 .title {
   position: absolute;
   display: block;
   width: 200px;
-    top: 50px;
-    font-size: 15px;
-    margin: 20px;
-    text-align:left;
+  top: 50px;
+  font-size: 15px;
+  margin: 20px;
+  text-align: left;
   white-space: normal;
   transition: width 0.2s;
 }
 
 .timeline {
-  display:block;
+  display: block;
   position: absolute;
   bottom: 20px;
-    font-size: 20px;
-    margin: 20px;
+  font-size: 20px;
+  margin: 20px;
   transition: display 0.8s;
-} 
+}
 
 .timeline-visible .timeline {
   display: block;
 }
 
 .timeline ul {
-margin: 0;
-padding: 0;
-list-style-type: none;
-text-align: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
 }
+
 /* 给ul绑定点击事件，获取li的年分实现数据切换，可以用于第二三个界面 */
 .timeline ul li {
   display: list-item;
@@ -402,61 +396,76 @@ text-align: center;
   font-size: 15px;
   font-weight: 100;
   padding: 0px 5px;
+  position: relative;
 }
 
 .timeline ul li:before {
-  font-family: FontAwesome;
+  /* font-family: FontAwesome;
   font-style: normal;
-  font-weight: normal;
-  color: rgba(255,255,255,0.5);
-  content: '\f10c';
+  font-weight: normal; */
+  border-color: rgba(255, 255, 255, 0.5);
+  border: 1.4px solid;
+  content: ' ';
   position: absolute;
-  top: 30px;
-  margin-left:10px;
+  /* 控制圆形的垂直位置，写死高度 */
+  bottom: -11px;
+  /* margin-left: 10px; */
   transition: all 0.5s;
+    /* 水平居中 */
+  left: 100%;
+  transform: translateX(-50%);
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
 }
 
 .timeline ul li:after {
   content: '';
   position: absolute;
-  top: 40px;
-  margin-left:-10px;
+  /* 控制方框的高度，写死 */
+  bottom: -9px;
+  /* margin-left: -10px; */
   width: 36px;
-  height:2px;
-  border: 1px solid rgba(255,255,255,0.5);
+  height: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   transition: all 0.5s;
+  /* 水平居中 */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.timelineYear, .timelineYear:hover {
+.timelineYear,
+.timelineYear:hover {
   text-decoration: none;
   color: #fff;
   transition: all 0.8s;
 }
 
 .timeline ul li:hover:before {
-  content: '\f111';
+  /* content: '\f111'; */
   color: #ffffff;
-  font-size: 18px;
-  transition: all 0.5s;
-  top: 29px;
-  margin-left:9px
+  /* font-size: 18px; */
+  /* transition: all 0.5s; */
+  /* top: 29px; */
+  /* margin-left: 9px */
 }
 
 .timeline ul li:hover:after {
-  content: '';
-  position: absolute;
-  top: 40px;
-  margin-left:-10px;
-  width: 36px;
-  height:2px;
+  /* content: ''; */
+  /* position: absolute; */
+  /* top: 40px; */
+  /* margin-left: -10px; */
+  /* width: 36px; */
+  /* height: 2px; */
   border: 1px solid #fff;
-  transition: all 0.5s;
+  /* transition: all 0.5s; */
 }
 
 .timeline ul li:hover .timelineYear {
   position: static;
-  top:-10px;
+  top: -10px;
 }
+
 
 
 .bg-46 {
@@ -503,6 +512,12 @@ text-align: center;
 .bg-20 {
  background: url(../assets/bg/2023.png); 
   background-size:cover;
+}
+#container {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
   </style>
   
